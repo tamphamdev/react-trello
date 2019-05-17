@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import {Modal, Button, Typography} from 'antd';
-import FormLogin from './FormLogin';
+import {Modal, Button} from 'antd';
+import FormSignUp from './FormSignUp';
 
-const {Text} = Typography;
 export default class ModalLogin extends Component {
 
   state = {
+    user: '',
     ModalText: 'Content of the modal',
     visible: false,
     confirmLoading: false
@@ -19,7 +19,7 @@ export default class ModalLogin extends Component {
   handleSubmit = (e) => {
    
     this.setState({
-      ModalText: 'Logging....Please wait a second ',
+      ModalText: 'Please wait a second ',
       confirmLoading: true,
     });
     setTimeout(() => {
@@ -31,7 +31,6 @@ export default class ModalLogin extends Component {
   }
 
   handleCancel = () => {
-    console.log('Clicked cancel button');
     this.setState({
       visible: false,
     });
@@ -40,22 +39,23 @@ export default class ModalLogin extends Component {
      const { visible, confirmLoading  } = this.state;
     return (
       <div>
-        <div type="primary" onClick={this.showModal} style={{}}>
-        <Text strong style={{ color: "#fff" }}>Login</Text>
+        <div type="primary" onClick={this.showModal} >
+          Sign Up
         </div>
         <Modal
-        title="Login Form"
+        // footer={null}
+        title="SignUp Form"
         visible={visible}
         onOk={this.handleSubmit}
         confirmLoading={confirmLoading}
         onCancel={this.handleCancel}
         footer={[
-          <Button form="myform" key="submit" htmlType="submit" onClick={this.handleSubmit}>
-              Submit
+          <Button type="primary" form="signup" key="submit" htmlType="submit" onClick={this.handleSubmit}>
+              Register
           </Button>
           ]}
-        >
-          <FormLogin {...this.state} />
+          >
+          <FormSignUp {...this.props}/>
         </Modal>
       </div>
     )

@@ -130,7 +130,7 @@ export default class GroupList extends Component {
 
     this.setState({ data: this.state.data });
   };
-
+  
   render() {
     const { data, isLoading } = this.state;
   

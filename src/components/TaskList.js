@@ -6,7 +6,6 @@ import Task from './Task';
 const taskStyle = {
   margin: '20px 0',
   fontSize: '1.1rem',
-  
 }
 class TaskList extends Component {
   state = {

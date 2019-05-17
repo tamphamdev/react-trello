@@ -6,9 +6,9 @@ import GroupList from './components/GroupList';
 function App() {
   return (
     <div className="App">
-    <Template>
-      <GroupList/>
-    </Template>
+      <Template>
+        <GroupList/>
+      </Template>
     </div>
   );
 }
