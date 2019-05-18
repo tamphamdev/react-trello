@@ -16,6 +16,7 @@ export default class ModalLogin extends Component {
     });
   };
   
+  // submit modal sign up
   handleSubmit = (e) => {
    
     this.setState({
@@ -43,7 +44,6 @@ export default class ModalLogin extends Component {
           Sign Up
         </div>
         <Modal
-        // footer={null}
         title="SignUp Form"
         visible={visible}
         onOk={this.handleSubmit}

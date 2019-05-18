@@ -1,8 +1,8 @@
-import React, { Component } from "react";
 import Board from "./Board";
 import { Row, Spin } from "antd";
 import { getBoard } from "../service";
-
+import React, { Component } from "react";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
 export default class GroupList extends Component {
   state = {
     data: [],
@@ -18,12 +18,12 @@ export default class GroupList extends Component {
     isLoading: false
   };
   // Fetch data thông qua file service
-  async componentDidMount() {
-    await getBoard().then(data =>  {
+  componentDidMount() {
+    getBoard().then(data => {
       this.setState({ data, isLoading: true });
     });
   }
-
+  // get id of group & task
   handleClickGroup = id => {
     console.log("Click group", id);
     if (id === this.state.currentIDGroup) return;
@@ -37,17 +37,17 @@ export default class GroupList extends Component {
       currentTitleGroup
     });
   };
-
+  // kiểm tra board có re-render ko
   shouldComponentUpdate(nextProps, nextState) {
-    if(nextProps !== this.props || nextState !== this.state) {
-      return true;  
+    if (nextProps !== this.props || nextState !== this.state) {
+      return true;
     }
     return false;
   }
 
   // lấy index hiện tại của Task và Group
   handleClickTask = (idTask, idGroup) => {
-    console.log("Click task", {idTask, idGroup});
+    console.log("Click task", { idTask, idGroup });
     if (idTask === this.state.currentIDTask) return;
 
     const { currentIndexTask, currentIndexGroup } = this.findIndex(
@@ -101,7 +101,7 @@ export default class GroupList extends Component {
     });
     return { currentIndexGroup, currentIndexTask };
   };
-
+  // tạo task mới
   createTask = item => {
     this.state.data[this.state.currentIndexGroup].tasks.push(item);
     this.setState({
@@ -130,10 +130,25 @@ export default class GroupList extends Component {
 
     this.setState({ data: this.state.data });
   };
-  
+
+  onDragEnd = result => {
+    const { destination, source, draggableId } = result;
+
+    if (!destination) return;
+    if (
+      destination.droppableId === source.droppableId &&
+      destination.index === source.index
+    )
+      return;
+    const column = this.state.data;
+    const columnIndex = this.state.data[source.droppableId];
+    // const task =  column.
+      
+  };
+
   render() {
     const { data, isLoading } = this.state;
-  
+
     if (!isLoading || !this.state.data) {
       return (
         <Row type="flex" justify="center" align="middle">
@@ -150,6 +165,7 @@ export default class GroupList extends Component {
         groupTasks={group.tasks}
         onClickGroup={this.handleClickGroup}
         onClickTask={this.handleClickTask}
+        currentIndexTask={this.currentIndexTask}
         currentTitleGroup={this.state.currentTitleGroup}
         currentTitleTask={this.state.currentTitleTask}
         createTask={this.createTask}
@@ -162,9 +178,11 @@ export default class GroupList extends Component {
     ));
     return (
       <div>
-        <Row gutter={16} justify="space-around" style={{ padding: "1rem 0" }}>
-          {groupElement}
-        </Row>
+        <DragDropContext onDragEnd={this.onDragEnd}>
+          <Row gutter={16} justify="space-around" style={{ padding: "1rem 0" }}>
+            {groupElement}
+          </Row>
+        </DragDropContext>
       </div>
     );
   }

@@ -14,12 +14,15 @@ class Template extends Component {
     isLogin: false,
     isLogout: false
   };
+
+  // log out method
   logOut = () => {
     this.setState({ isLogout: true });
     localStorage.clear();
   };
-
+  // authentication
   auth = isAuthenticated();
+
   render() {
     return (
       <div style={{ height: "100vh" }}>

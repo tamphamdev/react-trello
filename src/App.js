@@ -1,13 +1,17 @@
-import React from 'react';
-import './App.css';
-import 'antd/dist/antd.css';
-import Template from './components/Template';
-import GroupList from './components/GroupList';
+import "./App.css";
+import React from "react";
+import "antd/dist/antd.css";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
+
+import Template from "./components/Template";
+import GroupList from "./components/GroupList";
+
 function App() {
+
   return (
     <div className="App">
       <Template>
-        <GroupList/>
+          <GroupList />
       </Template>
     </div>
   );

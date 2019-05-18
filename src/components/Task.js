@@ -1,20 +1,65 @@
-import React from 'react';
-import {List, Typography} from 'antd';
-import '../css/Task.css';
+import "../css/Task.css";
+import React from "react";
+import { Draggable } from "react-beautiful-dnd";
+import { List, Typography, Icon } from "antd";
 const { Paragraph } = Typography;
 
-const Task = (props) => {
-   const {taskTitle,taskDate, updateTask, taskID, groupID ,onClickTask} = props
+const Task = props => {
+  const {
+    taskTitle,
+    taskDate,
+    updateTask,
+    taskID,
+    groupID,
+    onClickTask,
+    deleteTask,
+    index
+  } = props;
 
   return (
-    <div className="Task-Box" onClick={onClickTask.bind(this, taskID, groupID)} id={taskID}>
-      <Paragraph editable={{ onChange: updateTask }}>{taskTitle}</Paragraph>
-       <List
-      size="small"
-      dataSource={[taskDate]}
-      renderItem={item => <List.Item>{item}</List.Item>}
-    />
-    </div>
+    <Draggable draggableId={taskID} index={index}>
+      {(provided) => (
+        <div
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+          ref={provided.innerRef}
+          className="Task-Box"
+          id={taskID}
+          onClick={onClickTask.bind(this, taskID, groupID)}>
+          <Paragraph editable={{ onChange: updateTask }}>{taskTitle}</Paragraph>
+          <Icon type="delete" onClick={deleteTask} />
+          <List
+            size="small"
+            dataSource={[taskDate]}
+            renderItem={item => <List.Item>{item}</List.Item>}
+            />
+        </div>
+
+      )
+
+      }
+            </Draggable>
+    //FIXME:  
+    // <Draggable index={props.index} draggableId={taskID}>
+    //   {provided => (
+    //     <div
+    //       className="Task-Box"
+    //       id={taskID}
+    //       ref={provided.innerRef}
+    //       {...provided.draggableProps}
+    //       {...provided.dragHandleProps}
+    //       onClick={onClickTask.bind(this, taskID, groupID)}
+    //     >
+    //       <Paragraph editable={{ onChange: updateTask }}>{taskTitle}</Paragraph>
+    //       <Icon type="delete" onClick={deleteTask} />
+    //       <List
+    //         size="small"
+    //         dataSource={[taskDate]}
+    //         renderItem={item => <List.Item>{item}</List.Item>}
+    //       />
+    //     </div>
+    //   )}
+    // </Draggable>
   );
 };
 
