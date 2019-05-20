@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Col, Card } from "antd";
 import TaskList from "./TaskList";
-import { Droppable } from "react-beautiful-dnd";
 
 const styleBoard = {
   boxShadow: " 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)"

@@ -17,49 +17,26 @@ const Task = props => {
   } = props;
 
   return (
-    <Draggable draggableId={taskID} index={index}>
-      {(provided) => (
+    <Draggable draggableId={taskID} index={index}  >
+      {provided => (
         <div
-          {...provided.draggableProps}
-          {...provided.dragHandleProps}
-          ref={provided.innerRef}
-          className="Task-Box"
-          id={taskID}
-          onClick={onClickTask.bind(this, taskID, groupID)}>
+        {...provided.draggableProps}
+        {...provided.dragHandleProps}
+        ref={provided.innerRef}
+        className="Task-Box"
+        id={taskID}
+        onClick={onClickTask.bind(this, taskID, groupID)}
+        >
           <Paragraph editable={{ onChange: updateTask }}>{taskTitle}</Paragraph>
           <Icon type="delete" onClick={deleteTask} />
           <List
             size="small"
             dataSource={[taskDate]}
             renderItem={item => <List.Item>{item}</List.Item>}
-            />
+          />
         </div>
-
-      )
-
-      }
-            </Draggable>
-    //FIXME:  
-    // <Draggable index={props.index} draggableId={taskID}>
-    //   {provided => (
-    //     <div
-    //       className="Task-Box"
-    //       id={taskID}
-    //       ref={provided.innerRef}
-    //       {...provided.draggableProps}
-    //       {...provided.dragHandleProps}
-    //       onClick={onClickTask.bind(this, taskID, groupID)}
-    //     >
-    //       <Paragraph editable={{ onChange: updateTask }}>{taskTitle}</Paragraph>
-    //       <Icon type="delete" onClick={deleteTask} />
-    //       <List
-    //         size="small"
-    //         dataSource={[taskDate]}
-    //         renderItem={item => <List.Item>{item}</List.Item>}
-    //       />
-    //     </div>
-    //   )}
-    // </Draggable>
+      )}
+    </Draggable>
   );
 };
 

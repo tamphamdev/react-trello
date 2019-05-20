@@ -2,7 +2,7 @@ import Board from "./Board";
 import { Row, Spin } from "antd";
 import { getBoard } from "../service";
 import React, { Component } from "react";
-import { DragDropContext, Droppable } from "react-beautiful-dnd";
+import { DragDropContext } from "react-beautiful-dnd";
 export default class GroupList extends Component {
   state = {
     data: [],
@@ -17,6 +17,7 @@ export default class GroupList extends Component {
     isAddGroup: false,
     isLoading: false
   };
+
   // Fetch data thông qua file service
   componentDidMount() {
     getBoard().then(data => {
@@ -65,6 +66,7 @@ export default class GroupList extends Component {
       currentTitleTask
     });
   };
+
   handleAddTask = (idTask, idGroup) => {
     if (idTask === this.state.currentIDTask) return;
     // tìm index của Task và Group hiện tại
@@ -132,23 +134,42 @@ export default class GroupList extends Component {
   };
 
   onDragEnd = result => {
-    const { destination, source, draggableId } = result;
-
+    const { destination, source } = result;
+    // return nếu ko có đích đến
     if (!destination) return;
+    // return nếu cột đi = cột đích
     if (
       destination.droppableId === source.droppableId &&
       destination.index === source.index
-    )
+    ) {
       return;
+    }
+    const { index } = source;
     const column = this.state.data;
-    const columnIndex = this.state.data[source.droppableId];
-    // const task =  column.
-      
+    // lấy index cột gốc
+    const sourceColumnIndex = column[source.droppableId - 1];
+    // lấy nội dung thẻ
+    // const task = sourceColumnIndex.tasks[index];
+    // // lấy nội dung cột đích
+    // const destinationColumnIndex =
+    //   column[destination.droppableId - 1].tasks[index];
+    // xóa task khỏi cột
+    let [updatedColumn] = sourceColumnIndex.tasks.splice(index, 1);
+    // thêm task vào cột đích
+    let demo = column[destination.droppableId - 1].tasks.splice(destination.index,0,updatedColumn);
+   
+    this.setState({
+      data: [
+        ...column,
+        [sourceColumnIndex]: demo
+      ],
+      ...this.state
+    });
   };
 
   render() {
     const { data, isLoading } = this.state;
-
+    console.table(data);
     if (!isLoading || !this.state.data) {
       return (
         <Row type="flex" justify="center" align="middle">

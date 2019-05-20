@@ -23,7 +23,6 @@ export async function signup(data) {
   return await Axios.post(`${BASE_URL}/api/signup`, data)
     .then(response => {
       console.log(response.data);
-//TODO: viết function sign up
     })
     .catch(err => Promise.reject('Sign Up failed'));
 }

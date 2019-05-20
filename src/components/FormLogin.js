@@ -12,22 +12,14 @@ class FormLogin extends Component {
   handleOnChange = event => {
     this.setState({ [event.target.name]: event.target.value });
   };
-//TODO:validate emai ở đây  
-  // validateEmail(e) {
-  //   const emailRex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  //   const { validate } = this.state
-  //     if (emailRex.test(e.target.value)) {
-  //       validate.emailState = 'has-success'
-  //     } else {
-  //       validate.emailState = 'has-danger'
-  //     }
-  //     this.setState({ validate })
-  //   }
+
   submitLogin = e => {
     e.preventDefault();
     login(this.state).catch(err => alert(err));
     this.setState({ email: "", password: ""});
   };
+
+  
   render() {
     const { email, password } = this.state;
     return (

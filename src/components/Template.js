@@ -8,22 +8,25 @@ const { Header, Content } = Layout;
 const { Text } = Typography;
 
 const user = localStorage.getItem("user");
-
-class Template extends Component {
-  state = {
-    isLogin: false,
-    isLogout: false
-  };
-
+  // authentication
+  const auth = isAuthenticated();
+  
+  class Template extends Component {
+    state = {
+      isLogin: null,
+    };
+    
   // log out method
-  logOut = () => {
-    this.setState({ isLogout: true });
+  logOut =  () => {
+    this.setState({ isLogin: !this.auth });
     localStorage.clear();
   };
-  // authentication
-  auth = isAuthenticated();
+
+ 
 
   render() {
+    console.log('Render islogin', this.state.isLogin);
+    const {isLogin} = this.state;
     return (
       <div style={{ height: "100vh" }}>
         <Layout>
@@ -40,7 +43,7 @@ class Template extends Component {
                   Trello
                 </Text>
               </Menu.Item>
-              {!this.auth ? (
+              {!isLogin ? (
                 <Menu.SubMenu
                   {...this.props}
                   title={
@@ -62,9 +65,9 @@ class Template extends Component {
               ) : (
                 <>
                   <Text strong style={{ color: "#fff" }}>
-                    Welcome {user.toUpperCase()}
+                     {user.toUpperCase()}
                   </Text>
-                  <Text strong style={{ color: "#fff" }} onClick={this.logOut}>
+                  <Text strong style={{ color: "#fff", cursor: "pointer" }} onClick={this.logOut}>
                     Logout
                   </Text>
                 </>
