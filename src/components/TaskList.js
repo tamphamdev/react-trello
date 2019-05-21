@@ -12,7 +12,6 @@ class TaskList extends Component {
   state = {
     isAddTask: false
   };
-
   handleClickAddTask = e => {
     this.setState({ isAddTask: true });
   };
@@ -21,7 +20,7 @@ class TaskList extends Component {
     e.preventDefault();
     this.setState({ isAddTask: false });
   };
-
+  
   render() {
     const { groupTasks, groupID } = this.props;
 

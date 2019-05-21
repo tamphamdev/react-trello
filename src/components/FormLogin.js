@@ -5,21 +5,26 @@ import { login } from "../service";
 class FormLogin extends Component {
   state = {
     email: "",
-    password: "",
+    password: ""
   };
-  
+
   // Thay đổi input mỗi khi match với name của input
   handleOnChange = event => {
     this.setState({ [event.target.name]: event.target.value });
   };
-
+  // submit form login
   submitLogin = e => {
     e.preventDefault();
+    e.stopPropagation()
     login(this.state).catch(err => alert(err));
-    this.setState({ email: "", password: ""});
+    this.setState({ email: "", password: "" });
   };
-
-  
+  // handler "Enter" key
+  keyUpHandler = e => {
+    if (e.keyCode === 13) {
+      this.submitLogin();
+    }
+  };
   render() {
     const { email, password } = this.state;
     return (

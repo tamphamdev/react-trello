@@ -10,34 +10,29 @@ const { Text } = Typography;
 // authentication
 const auth = isAuthenticated();
 
-  class Template extends Component {
-    state = {
-      isLogin: auth,
-    };
-    
-    // log out method
-    logOut =  () => {
-      localStorage.clear();
-      this.setState({ isLogin: false });
-      
-      console.log('State at log out', {...this.state});
-    };
-    
-    logIn = () => {
-      setTimeout(() => {
-        this.setState({isLogin: true});
-      })
-      this.forceUpdate();
-      console.log('State at logIn' , this.state);
-    }
-    
-    
-    render() {
-      const user = localStorage.getItem("user");
-      const {isLogin} = this.state; 
-      console.log('State at render', this.state);
-      return (
-        <div style={{ height: "100vh" }}>
+class Template extends Component {
+  state = {
+    isLogin: auth
+  };
+
+  // log out method
+  logOut = () => {
+    localStorage.clear();
+    this.setState({ isLogin: false });
+  };
+  // log in method
+  logIn = () => {
+    setTimeout(() => {
+      this.setState({ isLogin: true });
+    });
+    this.forceUpdate();
+  };
+
+  render() {
+    const user = localStorage.getItem("user");
+    const { isLogin } = this.state;
+    return (
+      <div style={{ height: "100vh" }}>
         <Layout>
           <Header>
             <Menu
@@ -65,7 +60,7 @@ const auth = isAuthenticated();
                   }
                 >
                   <Menu.Item>
-                    <ModalLogin action={this.logIn}/>
+                    <ModalLogin action={this.logIn} />
                   </Menu.Item>
                   <Menu.Item>
                     <ModalSignUp />
@@ -73,10 +68,14 @@ const auth = isAuthenticated();
                 </Menu.SubMenu>
               ) : (
                 <>
-                  <Text strong style={{ color: "#fff" }}>
-                     { user.toUpperCase() }
+                  <Text strong style={{ color: "#fff" , padding: '1rem'}}>
+                    {user.toUpperCase()}
                   </Text>
-                  <Text strong style={{ color: "#fff", cursor: "pointer" }} onClick={this.logOut}>
+                  <Text
+                    strong
+                    style={{ color: "#fff", cursor: "pointer" }}
+                    onClick={this.logOut}
+                  >
                     Logout
                   </Text>
                 </>
