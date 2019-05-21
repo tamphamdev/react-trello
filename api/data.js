@@ -4,19 +4,19 @@ var data = [
     title: "To do",
     tasks: [
       {
-        id: "1.1",
+        id: "td1",
         title: "Task 1 Cột 1",
         startDate: "12-05-2019",
         endDate: "13-05-2019"
       },
       {
-        id: "1.2",
+        id: "td2",
         title: "Task 2 Cột 1",
         startDate: "12-05-2019",
         endDate: "23-05-2019"
       },
       {
-        id: "1.3",
+        id: "td3",
         title: "Task 3 Cột 1",
         startDate: "12-05-2019",
         endDate: "23-05-2019"
@@ -28,19 +28,19 @@ var data = [
     title: "Doing",
     tasks: [
       {
-        id: "2.1",
+        id: "do1",
         title: "Task 1 Cột 2",
         startDate: "12-05-2019",
         endDate: "23-05-2019"
       },
       {
-        id: "2.2",
+        id: "do2",
         title: "Task 2 Cột 2",
         startDate: "12-05-2019",
         endDate: "23-05-2019"
       },
       {
-        id: "2.3",
+        id: "do3",
         title: "Task 3 Cột 2",
         startDate: "12-05-2019",
         endDate: "23-05-2019"
@@ -52,19 +52,19 @@ var data = [
     title: "Done",
     tasks: [
       {
-        id: "3.1",
+        id: "de1",
         title: "Task 1 Cột 3",
         startDate: "12-05-2019",
         endDate: "23-05-2019"
       },
       {
-        id: "3.2",
+        id: "de2",
         title: "Task 2 Cột 3",
         startDate: "12-05-2019",
         endDate: "23-05-2019"
       },
       {
-        id: "3.3",
+        id: "de3",
         title: "Task 3 Cột 3",
         startDate: "12-05-2019",
         endDate: "23-05-2019"
