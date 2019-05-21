@@ -3,9 +3,12 @@ import { Input, Button, DatePicker } from "antd";
 import moment from "moment";
 const { RangePicker } = DatePicker;
 const addTaskStyle = {
+  textalign: "center",
   padding: "10px 0"
 };
-
+const margin = {
+  margin: '1rem 0'
+}
 moment().format();
 class AddTask extends Component {
   state = {
@@ -14,7 +17,6 @@ class AddTask extends Component {
   };
 
   onChange = (date, dateString) => {
-    console.log(dateString);
     this.setState({
       startDate: dateString[0],
       endDate: dateString[1]
@@ -38,6 +40,7 @@ class AddTask extends Component {
     };
     console.log({ item });
     this.props.createTask(item);
+    this.props.success();
     this.props.cancelAddTask(event);
   };
 
@@ -48,9 +51,13 @@ class AddTask extends Component {
           <Input
             type="text"
             placeholder="New task"
-            style={{ margin: "15px" }}
+            style={{ margin: "10px 0" }}
           />
-          <RangePicker onChange={this.onChange} format={"DD/MM/YYYY"} />
+          <RangePicker
+            onChange={this.onChange}
+            format={"DD/MM/YYYY"}
+           style={margin}
+          />
           <Button htmlType="submit" style={{ marginRight: "20px" }}>
             Add
           </Button>
