@@ -1,5 +1,5 @@
 import Board from "./Board";
-import { Row, Spin } from "antd";
+import { Row, Spin, message } from "antd";
 import { getBoard } from "../service";
 import React, { Component } from "react";
 import { DragDropContext } from "react-beautiful-dnd";
@@ -15,13 +15,13 @@ export default class GroupList extends Component {
     currentTitleTask: null,
 
     isAddGroup: false,
-    isLoading: false
+    isLoading: true
   };
 
   // Fetch data thông qua file service
   componentDidMount() {
     getBoard().then(data => {
-      this.setState({ data, isLoading: true });
+      this.setState({ data, isLoading: false });
     });
   }
   // get id of group & task
@@ -124,13 +124,26 @@ export default class GroupList extends Component {
     this.setState({ data: this.state.data });
   };
 
-  deleteTask = ( ) => {
-  
-    this.state.data[this.state.currentIndexGroup].tasks.splice(
-      this.state.currentIndexTask,
+  deleteTask = ( idTask, idGroup ) => {
+    this.state.data[idGroup -1 ].tasks.splice(
+      idTask -1,
       1
     );
     this.setState({ data: this.state.data });
+    this.success();
+  };
+
+
+   success = () => {
+    message.success('Success');
+  };
+  
+   error = () => {
+    message.error('This is a message of error');
+  };
+  
+   warning = () => {
+    message.warning('This is message of warning');
   };
 
   onDragEnd = result => {
@@ -169,7 +182,7 @@ export default class GroupList extends Component {
 
   render() {
     const { data, isLoading } = this.state;
-    if (!isLoading || !this.state.data) {
+    if (isLoading || !this.state.data) {
       return (
         <Row type="flex" justify="center" align="middle">
           <Spin tip="Loading..." />
@@ -180,6 +193,8 @@ export default class GroupList extends Component {
       <Board
         {...this.props}
         key={group.id}
+        success={this.success}
+        error={this.error}
         groupID={group.id}
         groupTitle={group.title}
         groupTasks={group.tasks}
@@ -200,7 +215,7 @@ export default class GroupList extends Component {
       <div>
         <DragDropContext onDragEnd={this.onDragEnd}>
           <Row gutter={16} justify="space-around" style={{ padding: "1rem 0" }}>
-            {groupElement}
+             {groupElement}
           </Row>
         </DragDropContext>
       </div>
