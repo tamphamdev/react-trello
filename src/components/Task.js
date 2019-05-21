@@ -5,7 +5,7 @@ import { Draggable } from "react-beautiful-dnd";
 import { List, Typography, Icon, Popconfirm } from "antd";
 const { Paragraph } = Typography;
 
-const Task = props => {
+const Task = (props) => {
   const {
     taskTitle,
     startDate,
@@ -24,7 +24,6 @@ const Task = props => {
   if (now > expired) {
     classesName += " Expired";
   }
-
   return (
     <Draggable draggableId={taskID} index={index}>
       {provided => {
@@ -47,18 +46,14 @@ const Task = props => {
               dataSource={[startDate, endDate]}
               renderItem={item => <List.Item>{item}</List.Item>}
             />
-              <Popconfirm
-                title="Are you sure delete this task?"
-                onConfirm={() => deleteTask(taskID, groupID)}
-                okText="Yes"
-                cancelText="No"
-              >
-                <Icon
-                  type="delete"
-                  // onClick={() => deleteTask(taskID, groupID)}
-                  style={{ color: "red" }}
-                />
-              </Popconfirm>
+            <Popconfirm
+              title="Are you sure delete task?"
+              onConfirm={() => deleteTask(taskID, groupID)}
+              okText="Yes"
+              cancelText="No"
+            >
+              <Icon type="delete" style={{ color: "red" }} />
+            </Popconfirm>
           </div>
         );
       }}

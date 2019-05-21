@@ -184,8 +184,8 @@ export default class GroupList extends Component {
     const { data, isLoading } = this.state;
     if (isLoading || !this.state.data) {
       return (
-        <Row type="flex" justify="center" align="middle">
-          <Spin tip="Loading..." />
+        <Row   text-align="center" style={{position:'fixed',top:'50%',left:'50%'}} >
+          <Spin tip="Loading..." size="large" />
         </Row>
       );
     }
