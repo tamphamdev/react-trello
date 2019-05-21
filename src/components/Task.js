@@ -2,7 +2,7 @@ import "../css/Task.css";
 import React from "react";
 import moment from "moment";
 import { Draggable } from "react-beautiful-dnd";
-import { List, Typography, Icon } from "antd";
+import { List, Typography, Icon, Popconfirm } from "antd";
 const { Paragraph } = Typography;
 
 const Task = props => {
@@ -24,6 +24,7 @@ const Task = props => {
   if (now > expired) {
     classesName += " Expired";
   }
+
   return (
     <Draggable draggableId={taskID} index={index}>
       {provided => {
@@ -34,17 +35,30 @@ const Task = props => {
             ref={provided.innerRef}
             className={classesName}
             id={taskID}
-            onClick={onClickTask.bind(this, taskID, groupID)}
           >
-            <Paragraph editable={{ onChange: updateTask }}>
+            <Paragraph
+              editable={{ onChange: updateTask }}
+              onClick={() => onClickTask(taskID, groupID)}
+            >
               {taskTitle}
             </Paragraph>
-            <Icon type="delete" onClick={deleteTask} style={{ color: "red" }} />
             <List
               size="small"
               dataSource={[startDate, endDate]}
               renderItem={item => <List.Item>{item}</List.Item>}
             />
+              <Popconfirm
+                title="Are you sure delete this task?"
+                onConfirm={() => deleteTask(taskID, groupID)}
+                okText="Yes"
+                cancelText="No"
+              >
+                <Icon
+                  type="delete"
+                  // onClick={() => deleteTask(taskID, groupID)}
+                  style={{ color: "red" }}
+                />
+              </Popconfirm>
           </div>
         );
       }}
