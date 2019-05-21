@@ -17,7 +17,8 @@ export default class ModalLogin extends Component {
       visible: true,
     });
   };
-  
+
+  // submit form
   handleSubmit = (e) => {
 
       this.setState({
@@ -39,8 +40,7 @@ export default class ModalLogin extends Component {
       visible: false,
     });
   };
-  componentWillUnmount() {
-  }
+
   render() {
      const { visible, confirmLoading  } = this.state;
     return (
@@ -55,7 +55,8 @@ export default class ModalLogin extends Component {
         confirmLoading={confirmLoading}
         onCancel={this.handleCancel}
         footer={[
-          <Button form="myform" key="submit" htmlType="submit" onClick={this.handleSubmit}>
+          <Button form="myform" key="submit" htmlType="submit"onClick={this.handleSubmit} 
+          onKeyUp={this.handleSubmit}>
               Submit
           </Button>
           ]}
@@ -66,3 +67,5 @@ export default class ModalLogin extends Component {
     )
   }
 };
+
+// }
