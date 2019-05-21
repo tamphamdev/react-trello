@@ -28,7 +28,6 @@ app.get("/api/board", (req, res) => {
   return res.json(data);
 });
 
-// TODO:  login
 app.post("/api/login", async (req, res) => {
   try {
     let { email, password } = req.body;

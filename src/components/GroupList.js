@@ -26,7 +26,7 @@ export default class GroupList extends Component {
   }
   // get id of group & task
   handleClickGroup = id => {
-    console.log("Click group", id);
+    console.log('Click group', id);
     if (id === this.state.currentIDGroup) return;
 
     const { currentIndexGroup } = this.findIndex(id);
@@ -48,7 +48,7 @@ export default class GroupList extends Component {
 
   // lấy index hiện tại của Task và Group
   handleClickTask = (idTask, idGroup) => {
-    console.log("Click task", { idTask, idGroup });
+    console.log('Click task', idTask, idGroup);
     if (idTask === this.state.currentIDTask) return;
 
     const { currentIndexTask, currentIndexGroup } = this.findIndex(
@@ -124,12 +124,12 @@ export default class GroupList extends Component {
     this.setState({ data: this.state.data });
   };
 
-  deleteTask = () => {
+  deleteTask = ( ) => {
+  
     this.state.data[this.state.currentIndexGroup].tasks.splice(
       this.state.currentIndexTask,
       1
     );
-
     this.setState({ data: this.state.data });
   };
 
@@ -148,12 +148,12 @@ export default class GroupList extends Component {
     const column = this.state.data;
     // lấy index cột gốc
     const sourceColumnIndex = column[source.droppableId - 1];
-    // lấy nội dung thẻ
+    //lấy nội dung thẻ
     // const task = sourceColumnIndex.tasks[index];
     // // lấy nội dung cột đích
     // const destinationColumnIndex =
     //   column[destination.droppableId - 1].tasks[index];
-    // xóa task khỏi cột
+   // xóa task khỏi cột
     let [updatedColumn] = sourceColumnIndex.tasks.splice(index, 1);
     // thêm task vào cột đích
     let demo = column[destination.droppableId - 1].tasks.splice(destination.index,0,updatedColumn);
@@ -161,7 +161,7 @@ export default class GroupList extends Component {
     this.setState({
       data: [
         ...column,
-        [sourceColumnIndex]: demo
+       [sourceColumnIndex]: demo
       ],
       ...this.state
     });
@@ -169,7 +169,6 @@ export default class GroupList extends Component {
 
   render() {
     const { data, isLoading } = this.state;
-    console.table(data);
     if (!isLoading || !this.state.data) {
       return (
         <Row type="flex" justify="center" align="middle">

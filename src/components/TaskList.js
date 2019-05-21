@@ -31,7 +31,8 @@ class TaskList extends Component {
         key={task.id}
         taskID={task.id}
         taskTitle={task.title}
-        taskDate={task.date}
+        startDate={task.startDate}
+        endDate={task.endDate}
         index={index}
         {...this.props}
       />
@@ -40,9 +41,7 @@ class TaskList extends Component {
       <React.Fragment>
         <Droppable droppableId={groupID}>
           {provided => (
-            <div ref={provided.innerRef}
-              {...provided.droppableProps}
-            >
+            <div ref={provided.innerRef} {...provided.droppableProps}>
               {taskElement}
 
               {provided.placeholder}

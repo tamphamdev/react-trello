@@ -13,20 +13,23 @@ const user = localStorage.getItem("user");
   
   class Template extends Component {
     state = {
-      isLogin: null,
+      isLogin: auth,
     };
     
   // log out method
   logOut =  () => {
-    this.setState({ isLogin: !this.auth });
     localStorage.clear();
+    this.setState({ isLogin: false });
+    this.forceUpdate();
+    console.log('State at log out', {...this.state});
   };
 
+  
  
 
   render() {
-    console.log('Render islogin', this.state.isLogin);
-    const {isLogin} = this.state;
+    const {isLogin} = this.state; 
+    console.log('State at render', this.state);
     return (
       <div style={{ height: "100vh" }}>
         <Layout>
@@ -56,7 +59,7 @@ const user = localStorage.getItem("user");
                   }
                 >
                   <Menu.Item>
-                    <ModalLogin />
+                    <ModalLogin/>
                   </Menu.Item>
                   <Menu.Item>
                     <ModalSignUp />

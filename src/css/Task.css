@@ -12,3 +12,8 @@
   transition: .3s all;
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 }
+
+.Expired {
+  border: 1px solid salmon;
+  text-decoration: line-through;
+}

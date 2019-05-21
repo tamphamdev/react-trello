@@ -3,6 +3,8 @@ import {Modal, Button, Typography} from 'antd';
 import FormLogin from './FormLogin';
 
 const {Text} = Typography;
+
+
 export default class ModalLogin extends Component {
 
   state = {
@@ -17,7 +19,6 @@ export default class ModalLogin extends Component {
   };
   
   handleSubmit = (e) => {
-   
     this.setState({
       ModalText: 'Logging....Please wait a second ',
       confirmLoading: true,
@@ -40,7 +41,7 @@ export default class ModalLogin extends Component {
      const { visible, confirmLoading  } = this.state;
     return (
       <div>
-        <div type="primary" onClick={this.showModal} style={{}}>
+        <div type="primary" onClick={this.showModal} >
         <Text strong style={{ color: "#fff" }}>Login</Text>
         </div>
         <Modal
