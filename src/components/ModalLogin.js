@@ -19,24 +19,28 @@ export default class ModalLogin extends Component {
   };
   
   handleSubmit = (e) => {
-    this.setState({
-      ModalText: 'Logging....Please wait a second ',
-      confirmLoading: true,
-    });
-    setTimeout(() => {
-      this.setState({
-        visible: false,
-        confirmLoading: false,
-      });
-    }, 500);
-  }
 
+      this.setState({
+        ModalText: 'Logging....Please wait a second ',
+        confirmLoading: true,
+      });
+      setTimeout(() => {
+        this.props.action();
+        this.setState({
+          visible: false,
+          confirmLoading: false,
+        });
+      }, 500);
+  }
+  
   handleCancel = () => {
     console.log('Clicked cancel button');
     this.setState({
       visible: false,
     });
   };
+  componentWillUnmount() {
+  }
   render() {
      const { visible, confirmLoading  } = this.state;
     return (

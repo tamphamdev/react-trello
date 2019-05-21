@@ -7,31 +7,37 @@ import { Layout, Menu, Typography, Icon } from "antd";
 const { Header, Content } = Layout;
 const { Text } = Typography;
 
-const user = localStorage.getItem("user");
-  // authentication
-  const auth = isAuthenticated();
-  
+// authentication
+const auth = isAuthenticated();
+
   class Template extends Component {
     state = {
       isLogin: auth,
     };
     
-  // log out method
-  logOut =  () => {
-    localStorage.clear();
-    this.setState({ isLogin: false });
-    this.forceUpdate();
-    console.log('State at log out', {...this.state});
-  };
-
-  
- 
-
-  render() {
-    const {isLogin} = this.state; 
-    console.log('State at render', this.state);
-    return (
-      <div style={{ height: "100vh" }}>
+    // log out method
+    logOut =  () => {
+      localStorage.clear();
+      this.setState({ isLogin: false });
+      
+      console.log('State at log out', {...this.state});
+    };
+    
+    logIn = () => {
+      setTimeout(() => {
+        this.setState({isLogin: true});
+      })
+      this.forceUpdate();
+      console.log('State at logIn' , this.state);
+    }
+    
+    
+    render() {
+      const user = localStorage.getItem("user");
+      const {isLogin} = this.state; 
+      console.log('State at render', this.state);
+      return (
+        <div style={{ height: "100vh" }}>
         <Layout>
           <Header>
             <Menu
@@ -59,7 +65,7 @@ const user = localStorage.getItem("user");
                   }
                 >
                   <Menu.Item>
-                    <ModalLogin/>
+                    <ModalLogin action={this.logIn}/>
                   </Menu.Item>
                   <Menu.Item>
                     <ModalSignUp />
@@ -68,7 +74,7 @@ const user = localStorage.getItem("user");
               ) : (
                 <>
                   <Text strong style={{ color: "#fff" }}>
-                     {user.toUpperCase()}
+                     { user.toUpperCase() }
                   </Text>
                   <Text strong style={{ color: "#fff", cursor: "pointer" }} onClick={this.logOut}>
                     Logout
