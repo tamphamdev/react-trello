@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose").set("debug", true);
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-const data = require("./data");
+// const data = require("./data");
 const cors = require("cors");
 const app = express();
 const path = require("path");
@@ -26,7 +26,7 @@ app.use(
 );
 /* Connect to Mongo DB*/
 mongoose
-  .connect(process.env.MONGO_URI  || process.env.MONGO_URL , {
+  .connect(process.env.MONGO_URI, {
     useNewUrlParser: true
   })
   .then(() => console.log("MongoDB successfully connected"))
@@ -44,7 +44,12 @@ if (process.env.NODE_ENV === "production") {
 
 app.get("/api/board", async (req, res) => {
   let data = await Data.find();
-  return await res.json(data);
+  if (!data) {
+    res.status(400).send({ message: "Cant get data" });
+  } else {
+    console.log("Get data", data);
+    return await res.json(data);
+  }
 });
 /* Login route*/
 app.post("/api/login", async (req, res) => {
@@ -97,7 +102,6 @@ app.post("/api/signup", async (req, res) => {
     console.log("Error from try/catch signup", err);
   }
 });
-
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log("api runnging on port " + PORT + ": "));

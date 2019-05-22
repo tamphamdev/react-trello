@@ -1,6 +1,6 @@
 import Axios from "axios";
 require("dotenv").config();
-const BASE_URL = "https://my-react-trello.herokuapp.com";
+const BASE_URL = process.env.BASE_URL || "http://localhost:5000";
 
 export function getBoard() {
   return Axios.get(`${BASE_URL}/api/board`, { withCredentials: true }).then(
