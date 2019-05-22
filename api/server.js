@@ -9,7 +9,7 @@ const cors = require("cors");
 const app = express();
 const path = require("path");
 const User = require("./model.js");
-const dataTest = require("./test.js");
+const Data = require("./test.js");
 app.options("*", cors());
 
 app.use(
@@ -42,8 +42,9 @@ if (process.env.NODE_ENV === "production") {
 
 /* Get all dump data*/
 
-app.get("/api/board", (req, res) => {
-  return res.json(data);
+app.get("/api/board", async (req, res) => {
+  let data = await Data.find();
+  return await res.json(data);
 });
 /* Login route*/
 app.post("/api/login", async (req, res) => {
