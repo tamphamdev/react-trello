@@ -1,4 +1,4 @@
 
 # GET http://localhost:5000/api/board/
 
-GET https://my-react-trello.herokuapp.com/api/board
+GET https://my-react-trello.herokuapp.com/api/
