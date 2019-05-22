@@ -13,8 +13,10 @@
     "express": "^4.16.4",
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.24.0",
+    "mongodb": "^3.2.5",
     "mongoose": "^5.5.8",
     "passport": "^0.4.0",
+    "path": "^0.12.7",
     "react": "^16.8.6",
     "react-beautiful-dnd": "^11.0.3",
     "react-dnd": "^7.4.5",
@@ -28,7 +30,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "api": "nodemon api/server.js",
-    "dev": "concurrently \"npm run api\" \"npm run start\""
+    "dev": "concurrently \"npm run api\" \"npm run start\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install" 
   },
   "eslintConfig": {
     "extends": "react-app"

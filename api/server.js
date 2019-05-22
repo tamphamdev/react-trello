@@ -7,8 +7,10 @@ const bcrypt = require("bcrypt");
 const data = require("./data");
 const cors = require("cors");
 const app = express();
+const path = require("path");
 const User = require("./model.js");
 app.options("*", cors());
+
 app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
 app.use(bodyParser.json()); // for parsing application/json
 app.use(
@@ -16,7 +18,7 @@ app.use(
     extended: false
   })
 );
-
+/* Connect to Mongo DB*/
 mongoose
   .connect(process.env.MONGO_URL, {
     useNewUrlParser: true
@@ -24,21 +26,32 @@ mongoose
   .then(() => console.log("MongoDB successfully connected"))
   .catch(err => console.log(err));
 
+/* Serve static file if in production*/
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static('/build'));
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
+  });
+}
+
+/* Get all dump data*/ 
 app.get("/api/board", (req, res) => {
   return res.json(data);
 });
-
+/* Login route*/
 app.post("/api/login", async (req, res) => {
   try {
     let { email, password } = req.body;
-    let emailSplit = email.split('@');
+    let emailSplit = email.split("@");
     let username = emailSplit[0];
-    let user = await User.findOne({ email: email}).exec();
-    if(!user) {return res.status(400).send({message: "Email does not exist"})};
-    if(!bcrypt.compareSync(password, user.password)) {
+    let user = await User.findOne({ email: email }).exec();
+    if (!user) {
+      return res.status(400).send({ message: "Email does not exist" });
+    }
+    if (!bcrypt.compareSync(password, user.password)) {
       return res.status(400).send({ message: "The password is invalid" });
     }
-     if (user) {
+    if (user) {
       let token_payload = { email: user.email, password: user.password };
       let token = jwt.sign(token_payload, "jwt_secrect_password", {
         expiresIn: "2h"
@@ -58,12 +71,10 @@ app.post("/api/login", async (req, res) => {
     console.log(err);
   }
 });
-
-//TODO: signup
-
-app.post('/api/signup', async (req, res) => {
+/* Sign up route*/
+app.post("/api/signup", async (req, res) => {
   try {
-    let {email, password} = req.body;
+    let { email, password } = req.body;
     const salt = await bcrypt.genSalt(10);
     password = await bcrypt.hash(password, salt);
     let user = new User({
@@ -74,13 +85,10 @@ app.post('/api/signup', async (req, res) => {
       console.log(result);
     });
     res.status(200).json("ÖK");
-  }
-
-  catch(err) {
-    console.log('Error from try/catch signup',err)
+  } catch (err) {
+    console.log("Error from try/catch signup", err);
   }
 });
 
-
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log("api runnging on port " + PORT + ": "));
