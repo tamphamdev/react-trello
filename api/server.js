@@ -9,9 +9,15 @@ const cors = require("cors");
 const app = express();
 const path = require("path");
 const User = require("./model.js");
+const dataTest = require("./test.js");
 app.options("*", cors());
 
-app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
+app.use(
+  cors({
+    credentials: true,
+    origin: process.env.PORT || "http://localhost:3000"
+  })
+);
 app.use(bodyParser.json()); // for parsing application/json
 app.use(
   bodyParser.urlencoded({
@@ -20,7 +26,7 @@ app.use(
 );
 /* Connect to Mongo DB*/
 mongoose
-  .connect(process.env.MONGO_URL, {
+  .connect(process.env.MONGO_URI  || process.env.MONGO_URL , {
     useNewUrlParser: true
   })
   .then(() => console.log("MongoDB successfully connected"))
@@ -28,13 +34,14 @@ mongoose
 
 /* Serve static file if in production*/
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static('/build'));
-  app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
+  app.use(express.static("/build"));
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "build", "index.html"));
   });
 }
 
-/* Get all dump data*/ 
+/* Get all dump data*/
+
 app.get("/api/board", (req, res) => {
   return res.json(data);
 });
@@ -89,6 +96,7 @@ app.post("/api/signup", async (req, res) => {
     console.log("Error from try/catch signup", err);
   }
 });
+
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log("api runnging on port " + PORT + ": "));

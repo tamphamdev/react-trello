@@ -1,6 +1,6 @@
 import Axios from 'axios';
-
-const BASE_URL = "http://localhost:5000";
+require("dotenv").config();
+const BASE_URL = process.env.BASE_URL || "http://localhost:5000";
 
 export function getBoard() {
   return Axios.get(`${BASE_URL}/api/board`, {withCredentials:true})
