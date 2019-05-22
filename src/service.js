@@ -1,15 +1,15 @@
 import Axios from "axios";
 require("dotenv").config();
-const BASE_URL = process.env.BASE_URL || "http://localhost:5000";
+const BASE_URL = process.env.base_URL || "http://localhost:5000";
 
 export function getBoard() {
-  return Axios.get(`${BASE_URL}/api/board`, { withCredentials: true }).then(
+  return Axios.get('/api/board', { withCredentials: true }).then(
     response => response.data
   );
 }
 
 export function login(data) {
-  return Axios.post(`${BASE_URL}/api/login`, data)
+  return Axios.post('/api/login', data)
     .then(response => {
       localStorage.setItem("x-access-token", response.data.token);
       localStorage.setItem(
@@ -24,7 +24,7 @@ export function login(data) {
 }
 
 export async function signup(data) {
-  return await Axios.post(`${BASE_URL}/api/signup`, data)
+  return await Axios.post('/api/signup', data)
     .then(response => {
       console.log(response.data);
     })

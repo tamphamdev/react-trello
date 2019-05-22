@@ -14,8 +14,7 @@ app.options("*", cors());
 
 app.use(
   cors({
-    credentials: true,
-    origin: process.env.PORT || "http://localhost:3000"
+    credentials: true
   })
 );
 app.use(bodyParser.json()); // for parsing application/json
@@ -36,7 +35,7 @@ mongoose
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("/build"));
   app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "build", "index.html"));
+    res.sendFile(path.join(__dirname, "build", "index.html"));
   });
 }
 
