@@ -25,7 +25,7 @@
     "react-scripts": "3.0.1"
   },
   "scripts": {
-    "start": "concurrently \"npm run api\" \"npm run start\"",
+    "start": "node api/server.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
