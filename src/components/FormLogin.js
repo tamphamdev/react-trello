@@ -23,6 +23,7 @@ class FormLogin extends Component {
         this.props.error(res.message);
       }
     });
+   
     this.setState({ email: "", password: "" });
   };
   // handler "Enter" key

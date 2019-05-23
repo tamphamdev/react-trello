@@ -9,32 +9,32 @@ const { Text } = Typography;
 
 // authentication
 const auth = isAuthenticated();
-
+console.log("Auth", auth);
 class Template extends Component {
   state = {
     isLogin: auth
   };
 
-   success = (res) => {
+  success = res => {
     message.success(res);
   };
-  
-   error = (res) => {
+
+  error = res => {
     message.error(res);
   };
-  
-   warning = (res) => {
+
+  warning = res => {
     message.warning(res);
   };
   // log out method
-  logOut = () => {
-    localStorage.clear();
-    this.setState({ isLogin: !auth });
+  logOut = async () => {
+    await localStorage.clear();
+    await this.setState({ isLogin: !auth });
   };
   // log in method
   logIn = () => {
     setTimeout(() => {
-      this.setState({ isLogin: auth });
+      this.setState({ isLogin: true });
     });
     this.forceUpdate();
   };
@@ -42,7 +42,8 @@ class Template extends Component {
   render() {
     const user = localStorage.getItem("user");
     const { isLogin } = this.state;
-    console.log("isLogin template",isLogin);
+    console.log("Re-render");
+    console.log("isLogin template", isLogin);
     return (
       <div style={{ height: "100vh" }}>
         <Layout>
@@ -59,7 +60,21 @@ class Template extends Component {
                   Trello
                 </Text>
               </Menu.Item>
-              {!auth ? (
+              {isLogin ? (
+                <>
+                  <Text strong style={{ color: "#fff", padding: "1rem" }}>
+                    {user}
+                    {/* {user !== 'undefined' ? user.toUpperCase() : null} */}
+                  </Text>
+                  <Text
+                    strong
+                    style={{ color: "#fff", cursor: "pointer" }}
+                    onClick={this.logOut}
+                  >
+                    Logout
+                  </Text>
+                </>
+              ) : (
                 <Menu.SubMenu
                   {...this.props}
                   title={
@@ -72,26 +87,16 @@ class Template extends Component {
                   }
                 >
                   <Menu.Item>
-                    <ModalLogin onLogin={this.logIn} success={this.success} error={this.error}/>
+                    <ModalLogin
+                      action={this.logIn}
+                      success={this.success}
+                      error={this.error}
+                    />
                   </Menu.Item>
                   <Menu.Item>
-                    <ModalSignUp success={this.success} error={this.error}/>
+                    <ModalSignUp success={this.success} error={this.error} />
                   </Menu.Item>
                 </Menu.SubMenu>
-              ) : (
-                <>
-                  <Text strong style={{ color: "#fff" , padding: '1rem'}}>
-                    {user}
-                    {/* {user !== 'undefined' ? user.toUpperCase() : null} */}
-                  </Text>
-                  <Text
-                    strong
-                    style={{ color: "#fff", cursor: "pointer" }}
-                    onClick={this.logOut}
-                  >
-                    Logout
-                  </Text>
-                </>
               )}
             </Menu>
           </Header>
