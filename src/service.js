@@ -1,7 +1,7 @@
 import Axios from "axios";
 require("dotenv").config();
 
-const base_URL = process.env.base_URL || "localhost:5000";
+const base_URL = process.env.base_URL || "http://localhost:5000";
 
 // for development only
 export function getBoard() {
