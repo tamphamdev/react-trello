@@ -12,12 +12,14 @@ export function getBoard() {
 export function login(data) {
   return Axios.post(`${base_URL}/api/login`, data)
     .then(response => {
-      localStorage.setItem("x-access-token", response.data.token);
-      localStorage.setItem(
-        "x-access-token-expiration",
-        Date.now() + 2 * 60 * 60 * 1000
-      );
-      localStorage.setItem("user", response.data.username);
+      if (response.data.token) {
+        localStorage.setItem("x-access-token", response.data.token);
+        localStorage.setItem(
+          "x-access-token-expiration",
+          Date.now() + 2 * 60 * 60 * 1000
+        );
+        localStorage.setItem("user", response.data.username);
+      }
       return response.data;
     })
     .catch(err => Promise.reject("Authentication failed"));
@@ -26,14 +28,14 @@ export function login(data) {
 export async function signup(data) {
   return await Axios.post(`${base_URL}/api/signup`, data)
     .then(response => {
-     return response.data;
+      return response.data;
     })
     .catch(err => console.log(err));
 }
 
 export function isAuthenticated() {
-  return (
-    localStorage.getItem("x-access-token") &&
+  return localStorage.getItem("x-access-token") &&
     localStorage.getItem("x-access-token-expiration") > Date.now()
-  );
+    ? true
+    : false;
 }
