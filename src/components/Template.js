@@ -9,7 +9,6 @@ const { Text } = Typography;
 
 // authentication
 const auth = isAuthenticated();
-console.log("Auth", auth);
 class Template extends Component {
   state = {
     isLogin: auth
@@ -42,8 +41,6 @@ class Template extends Component {
   render() {
     const user = localStorage.getItem("user");
     const { isLogin } = this.state;
-    console.log("Re-render");
-    console.log("isLogin template", isLogin);
     return (
       <div style={{ height: "100vh" }}>
         <Layout>

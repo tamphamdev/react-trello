@@ -1,17 +1,13 @@
 import Axios from "axios";
-require("dotenv").config();
 
-const base_URL = process.env.base_URL || "http://localhost:5000";
-
-// for development only
 export function getBoard() {
-  return Axios.get(`${base_URL}/api/board`, { withCredentials: true }).then(
+  return Axios.get("/api/board", { withCredentials: true }).then(
     response => response.data
   );
 }
 
 export function login(data) {
-  return Axios.post(`${base_URL}/api/login`, data)
+  return Axios.post("/api/login", data)
     .then(response => {
       if (response.data.token) {
         localStorage.setItem("x-access-token", response.data.token);
@@ -27,7 +23,7 @@ export function login(data) {
 }
 
 export async function signup(data) {
-  return await Axios.post(`${base_URL}/api/signup`, data)
+  return await Axios.post("/api/signup", data)
     .then(response => {
       return response.data;
     })
