@@ -6,7 +6,7 @@ import Template from "./components/Template";
 import GroupList from "./components/GroupList";
 
 function App() {
-
+ 
   return (
     <div className="App">
       <Template>
