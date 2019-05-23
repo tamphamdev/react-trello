@@ -41,7 +41,7 @@ class AddTask extends Component {
     };
 
     this.props.createTask(item);
-    this.props.success();
+    this.props.success("Add sucess");
     this.props.cancelAddTask(event);
   };
 
