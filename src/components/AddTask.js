@@ -32,13 +32,14 @@ class AddTask extends Component {
     let startDate = this.state.startDate;
     let endDate = this.state.endDate;
     let miliSecond = String(moment().valueOf(startDate));
+    
     const item = {
       id: miliSecond,
       title: text,
       startDate,
       endDate
     };
-    console.log({ item });
+
     this.props.createTask(item);
     this.props.success();
     this.props.cancelAddTask(event);

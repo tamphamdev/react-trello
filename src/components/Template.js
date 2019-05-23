@@ -14,7 +14,7 @@ class Template extends Component {
   state = {
     isLogin: auth
   };
-
+ 
   // log out method
   logOut = () => {
     localStorage.clear();
@@ -69,7 +69,7 @@ class Template extends Component {
               ) : (
                 <>
                   <Text strong style={{ color: "#fff" , padding: '1rem'}}>
-                    {user.toUpperCase()}
+                    { user.toUpperCase()}
                   </Text>
                   <Text
                     strong

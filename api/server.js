@@ -4,40 +4,18 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose").set("debug", true);
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-// const data = require("./data");
 const cors = require("cors");
 const app = express();
 const path = require("path");
 const User = require("./model.js");
 const Data = require("./test.js");
-// app.use(function(req, res, next) {
-//   // Website you wish to allow to connect
-//   res.setHeader("Access-Control-Allow-Origin", "*");
 
-//   // Request methods you wish to allow
-//   res.setHeader(
-//     "Access-Control-Allow-Methods",
-//     "GET, POST, OPTIONS, PUT, PATCH, DELETE"
-//   );
-
-//   // Request headers you wish to allow
-//   res.setHeader(
-//     "Access-Control-Allow-Headers",
-//     "X-Requested-With,content-type"
-//   );
-
-//   // Set to true if you need the website to include cookies in the requests sent
-//   // to the API (e.g. in case you use sessions)
-//   res.setHeader("Access-Control-Allow-Credentials", true);
-
-//   // Pass to next layer of middleware
-//   next();
-// });
+/* Initial CORS before boyParser*/
 app.options("*", cors());
-
 app.use(
   cors({
     credentials: true,
+    origin: "http://localhost:3000"
   })
 );
 app.use(bodyParser.json()); // for parsing application/json
@@ -48,7 +26,7 @@ app.use(
 );
 /* Connect to Mongo DB*/
 mongoose
-  .connect(process.env.MONGO_URI, {
+  .connect(process.env.MONGO_URI || process.env.MONGO_LOCAL, {
     useNewUrlParser: true
   })
   .then(() => console.log("MongoDB successfully connected"))
@@ -68,7 +46,6 @@ app.get("/api/board", async (req, res) => {
   if (!data) {
     res.status(400).send({ message: "Cant get data" });
   } else {
-    console.log("Get data", data);
     return await res.json(data);
   }
 });
@@ -110,19 +87,22 @@ app.post("/api/signup", async (req, res) => {
   try {
     let { email, password } = req.body;
     const salt = await bcrypt.genSalt(10);
+    const isExistEmail = await User.findOne({ email: email }).exec();
+    if (isExistEmail)
+      return res.json({ statusCode: 400, message: "Email does exist" });
     password = await bcrypt.hash(password, salt);
     let user = new User({
       email,
       password
     });
     await user.save((err, result) => {
-      console.log(result);
+      console.log("Result Sign up", result);
     });
-    res.status(200).json("ÖK");
+    res.status(200).json({ statusCode: 200, message: "Sigup Success" });
   } catch (err) {
     console.log("Error from try/catch signup", err);
   }
 });
 
-const PORT = process.env.PORT || "5000";
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log("api runnging on port " + PORT + ": "));

@@ -26,7 +26,6 @@ export default class GroupList extends Component {
   }
   // get id of group & task
   handleClickGroup = id => {
-    console.log('Click group', id);
     if (id === this.state.currentIDGroup) return;
 
     const { currentIndexGroup } = this.findIndex(id);
@@ -134,16 +133,16 @@ export default class GroupList extends Component {
   };
 
 
-   success = () => {
-    message.success('Success');
+   success = (message) => {
+    message.success(message);
   };
   
-   error = () => {
-    message.error('This is a message of error');
+   error = (message) => {
+    message.error(message);
   };
   
-   warning = () => {
-    message.warning('This is message of warning');
+   warning = (message) => {
+    message.warning(message);
   };
 
   onDragEnd = result => {
@@ -161,12 +160,7 @@ export default class GroupList extends Component {
     const column = this.state.data;
     // lấy index cột gốc
     const sourceColumnIndex = column[source.droppableId - 1];
-    //lấy nội dung thẻ
-    // const task = sourceColumnIndex.tasks[index];
-    // // lấy nội dung cột đích
-    // const destinationColumnIndex =
-    //   column[destination.droppableId - 1].tasks[index];
-   // xóa task khỏi cột
+   
     let [updatedColumn] = sourceColumnIndex.tasks.splice(index, 1);
     // thêm task vào cột đích
     let demo = column[destination.droppableId - 1].tasks.splice(destination.index,0,updatedColumn);

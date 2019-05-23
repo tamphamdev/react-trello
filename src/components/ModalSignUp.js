@@ -28,7 +28,7 @@ export default class ModalLogin extends Component {
         visible: false,
         confirmLoading: false,
       });
-    }, 500);
+    }, 1000);
   }
 
   handleCancel = () => {
