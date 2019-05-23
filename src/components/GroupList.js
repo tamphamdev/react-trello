@@ -47,7 +47,7 @@ export default class GroupList extends Component {
 
   // lấy index hiện tại của Task và Group
   handleClickTask = (idTask, idGroup) => {
-    console.log('Click task', idTask, idGroup);
+    console.log("Click task", idTask, idGroup);
     if (idTask === this.state.currentIDTask) return;
 
     const { currentIndexTask, currentIndexGroup } = this.findIndex(
@@ -123,26 +123,22 @@ export default class GroupList extends Component {
     this.setState({ data: this.state.data });
   };
 
-  deleteTask = ( idTask, idGroup ) => {
-    this.state.data[idGroup -1 ].tasks.splice(
-      idTask -1,
-      1
-    );
+  deleteTask = (idTask, idGroup) => {
+    this.state.data[idGroup - 1].tasks.splice(idTask - 1, 1);
     this.setState({ data: this.state.data });
-    this.success();
+    this.success("Delete sucess");
   };
 
+  success = res => {
+    message.success(res);
+  };
 
-   success = (message) => {
-    message.success(message);
+  error = res => {
+    message.error(res);
   };
-  
-   error = (message) => {
-    message.error(message);
-  };
-  
-   warning = (message) => {
-    message.warning(message);
+
+  warning = res => {
+    message.warning(res);
   };
 
   onDragEnd = result => {
@@ -160,16 +156,17 @@ export default class GroupList extends Component {
     const column = this.state.data;
     // lấy index cột gốc
     const sourceColumnIndex = column[source.droppableId - 1];
-   
+
     let [updatedColumn] = sourceColumnIndex.tasks.splice(index, 1);
     // thêm task vào cột đích
-    let demo = column[destination.droppableId - 1].tasks.splice(destination.index,0,updatedColumn);
-   
+    let demo = column[destination.droppableId - 1].tasks.splice(
+      destination.index,
+      0,
+      updatedColumn
+    );
+
     this.setState({
-      data: [
-        ...column,
-       [sourceColumnIndex]: demo
-      ],
+      data: [...column, ([sourceColumnIndex]: demo)],
       ...this.state
     });
   };
@@ -178,7 +175,10 @@ export default class GroupList extends Component {
     const { data, isLoading } = this.state;
     if (isLoading || !this.state.data) {
       return (
-        <Row   text-align="center" style={{position:'fixed',top:'50%',left:'50%'}} >
+        <Row
+          text-align="center"
+          style={{ position: "fixed", top: "50%", left: "50%" }}
+        >
           <Spin tip="Loading..." size="large" />
         </Row>
       );
@@ -209,7 +209,7 @@ export default class GroupList extends Component {
       <div>
         <DragDropContext onDragEnd={this.onDragEnd}>
           <Row gutter={16} justify="space-around" style={{ padding: "1rem 0" }}>
-             {groupElement}
+            {groupElement}
           </Row>
         </DragDropContext>
       </div>

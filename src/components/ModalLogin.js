@@ -55,13 +55,13 @@ export default class ModalLogin extends Component {
         confirmLoading={confirmLoading}
         onCancel={this.handleCancel}
         footer={[
-          <Button form="myform" key="submit" htmlType="submit"onClick={this.handleSubmit} 
+          <Button form="myform" key="submit" htmlType="submit"onClick={this.props.onLogin} 
           onKeyUp={this.handleSubmit}>
               Submit
           </Button>
           ]}
         >
-          <FormLogin {...this.state} />
+          <FormLogin {...this.state}  {...this.props}/>
         </Modal>
       </div>
     )

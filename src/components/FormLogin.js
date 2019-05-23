@@ -7,7 +7,7 @@ class FormLogin extends Component {
     email: "",
     password: ""
   };
-
+  
   // Thay đổi input mỗi khi match với name của input
   handleOnChange = event => {
     this.setState({ [event.target.name]: event.target.value });
@@ -16,7 +16,13 @@ class FormLogin extends Component {
   submitLogin = e => {
     e.preventDefault();
     e.stopPropagation()
-    login(this.state).catch(err => alert(err));
+    login(this.state).then(res => {
+      if(res.statusCode !== 400) {
+        this.props.success(res.message);
+      } else {
+        this.props.error(res.message);
+      }
+    });
     this.setState({ email: "", password: "" });
   };
   // handler "Enter" key

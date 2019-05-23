@@ -1,6 +1,6 @@
 import { signup } from "../service";
 import React, { Component } from "react";
-import { Form, Input, Alert , message} from "antd";
+import { Form, Input } from "antd";
 
 class FormSignUp extends Component {
   state = {
@@ -10,28 +10,23 @@ class FormSignUp extends Component {
     message: ''
   };
 
-  error = (err) => {
-    message.error(err);
-  }
-  success = (success) => {
-    message.success(success);
-  }
-
+ 
+/* Submit form */
   handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
         signup(values).then(res => {
           if(res.statusCode === 400) {
-            this.error(res.message);
+            this.props.error(res.message);
           } else {
-            this.success(res.message);
+            this.props.success(res.message);
           }
         });
       } 
     });
   };
-
+/*Compare password */
   compareToFirstPassword = (rule, value, callback) => {
     const form = this.props.form;
     if (value && value !== form.getFieldValue("password")) {
