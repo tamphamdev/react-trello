@@ -29,7 +29,7 @@ class Template extends Component {
   // log out method
   logOut = async () => {
     await localStorage.clear();
-    await this.setState({ isLogin: !auth });
+    await this.setState({ isLogin: false });
   };
   // log in method
   logIn = () => {

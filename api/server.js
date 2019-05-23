@@ -16,7 +16,8 @@ app.use(
     origin: "http://localhost:3000"
   })
 );
-app.use(bodyParser.json()); // for parsing application/json
+// for parsing application/json
+app.use(bodyParser.json()); 
 app.use(
   bodyParser.urlencoded({
     extended: false

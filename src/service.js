@@ -1,6 +1,7 @@
 import Axios from "axios";
 require("dotenv").config();
-const base_URL = process.env.base_URL || "http://localhost:5000";
+
+const base_URL = process.env.base_URL || "localhost:5000";
 
 // for development only
 export function getBoard() {
@@ -14,7 +15,10 @@ export function login(data) {
     .then(response => {
       if (response.data.token) {
         localStorage.setItem("x-access-token", response.data.token);
-        localStorage.setItem("x-access-token-expiration",Date.now() + 2 * 60 * 60 * 1000);
+        localStorage.setItem(
+          "x-access-token-expiration",
+          Date.now() + 2 * 60 * 60 * 1000
+        );
         localStorage.setItem("user", response.data.username);
       }
       return response.data;

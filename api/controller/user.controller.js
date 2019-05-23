@@ -21,7 +21,7 @@ module.exports = {
       let username = emailSplit[0];
       if (user) {
         let token_payload = { email: user.email, password: user.password };
-        let token = jwt.sign(token_payload, "jwt_secrect_password", {
+        let token = jwt.sign(token_payload, process.env.JWT_SECRET_KEY, {
           expiresIn: "2h"
         });
         let response = {
