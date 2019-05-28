@@ -18,7 +18,7 @@ function App() {
               path="/confirm-password/:token"
               component={ConfirmPassword}
             />
-            <Route path="/index" exact component={GroupList} />
+            <Route path="/" exact component={GroupList} />
           </Switch>
         </Template>
       </BrowserRouter>
