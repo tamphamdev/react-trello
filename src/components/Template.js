@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import ModalLogin from "./ModalLogin";
 import ModalSignUp from "./ModalSignUp";
 import { isAuthenticated } from "../service";
+
+import { Link } from "react-router-dom";
 import { Layout, Menu, Typography, Icon, message } from "antd";
 
 const { Header, Content } = Layout;
@@ -11,7 +13,8 @@ const { Text } = Typography;
 const auth = isAuthenticated();
 class Template extends Component {
   state = {
-    isLogin: auth
+    isLogin: auth,
+    user: ""
   };
 
   success = res => {
@@ -32,15 +35,14 @@ class Template extends Component {
   };
   // log in method
   logIn = () => {
-    setTimeout(() => {
-      this.setState({ isLogin: true });
-    });
+    this.setState({ isLogin: auth });
     this.forceUpdate();
   };
-
+  componentWillMount() {
+    this.setState({ user: localStorage.getItem("user") });
+  }
   render() {
-    const user = localStorage.getItem("user");
-    const { isLogin } = this.state;
+    const { isLogin, user } = this.state;
     return (
       <div style={{ height: "100vh" }}>
         <Layout>
@@ -53,15 +55,12 @@ class Template extends Component {
               style={{ lineHeight: "64px" }}
             >
               <Menu.Item key="home">
-                <Text strong style={{ color: "#fff" }}>
-                  Trello
-                </Text>
+                <Link to="/">Home</Link>
               </Menu.Item>
               {isLogin ? (
                 <>
                   <Text strong style={{ color: "#fff", padding: "1rem" }}>
                     {user}
-                    {/* {user !== 'undefined' ? user.toUpperCase() : null} */}
                   </Text>
                   <Text
                     strong
@@ -97,7 +96,10 @@ class Template extends Component {
               )}
             </Menu>
           </Header>
-          <Content style={{ padding: "0 20px" }}>{this.props.children}</Content>
+
+          <Content style={{ padding: "0 20px" }}>
+            {this.props.children}
+          </Content>
         </Layout>
       </div>
     );
