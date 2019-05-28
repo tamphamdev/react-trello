@@ -4,8 +4,8 @@ const cors = require("cors");
 const app = express();
 const path = require("path");
 const bodyParser = require("body-parser");
-const userRoutes = require("./api/routes/user.route");
-const indexRoutes = require("./api/routes/index.route");
+const userRoutes = require("./routes/user.route");
+const indexRoutes = require("./routes/index.route");
 const mongoose = require("mongoose").set("debug", true);
 
 /* Initial CORS before boyParser*/
@@ -31,14 +31,13 @@ mongoose
   .catch(err => console.log(err));
 
 /* Serve static file if in production*/
-// /^\/(?!api).*/
+
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("build"));
-  app.get("/*", (req, res) => {
-    res.sendFile(path.join(__dirname, "/build/index.html"));
+  app.get(/^\/(?!api).*/, (req, res) => {
+    res.sendFile(path.join(__dirname, "build/index.html"));
   });
 }
-
 app.use("/api", userRoutes);
 app.use("/api", indexRoutes);
 

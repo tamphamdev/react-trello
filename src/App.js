@@ -13,7 +13,7 @@ function App() {
         <Template>
           <Route exact path="/" component={GroupList} />
           <Route path="/reset-password" component={ModalForgotPass} />
-          <Route path="/confirm-password/:token" component={ConfirmPassword} />
+          <Route path="/reset/:token" component={ConfirmPassword} />
         </Template>
       </Router>
     </div>
