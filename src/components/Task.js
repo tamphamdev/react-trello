@@ -1,11 +1,16 @@
 import "../css/Task.css";
 import React from "react";
+import styled from "styled-components";
 import moment from "moment";
 import { Draggable } from "react-beautiful-dnd";
 import { List, Typography, Icon, Popconfirm } from "antd";
-const { Paragraph } = Typography;
 
-const Task = (props) => {
+const { Paragraph } = Typography;
+const Container = styled.div`
+  border: 1px solid ${props => (props.isDragging ? "lightgrey" : "none")};
+  background-color: ${props => (props.isDragging ? "lightgreen" : "white")};
+`;
+const Task = props => {
   const {
     taskTitle,
     startDate,
@@ -26,11 +31,12 @@ const Task = (props) => {
   }
   return (
     <Draggable draggableId={taskID} index={index}>
-      {provided => {
+      {(provided, snapshot) => {
         return (
-          <div
+          <Container
             {...provided.draggableProps}
             {...provided.dragHandleProps}
+            isDragging={snapshot.isDragging}
             ref={provided.innerRef}
             className={classesName}
             id={taskID}
@@ -54,7 +60,7 @@ const Task = (props) => {
             >
               <Icon type="delete" style={{ color: "red" }} />
             </Popconfirm>
-          </div>
+          </Container>
         );
       }}
     </Draggable>
