@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Modal, Button} from 'antd';
+import {Modal} from 'antd';
 import FormSignUp from './FormSignUp';
 
 export default class ModalLogin extends Component {
@@ -44,18 +44,14 @@ export default class ModalLogin extends Component {
           Sign Up
         </div>
         <Modal
+        footer={null}
         title="SignUp Form"
         visible={visible}
         onOk={this.handleSubmit}
         confirmLoading={confirmLoading}
         onCancel={this.handleCancel}
-        footer={[
-          <Button type="primary" form="signup" key="submit" htmlType="submit" onClick={this.handleSubmit}>
-              Register
-          </Button>
-          ]}
           >
-          <FormSignUp {...this.props}/>
+          <FormSignUp {...this.props}  />
         </Modal>
       </div>
     )
