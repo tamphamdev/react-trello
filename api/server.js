@@ -31,15 +31,15 @@ mongoose
   .catch(err => console.log(err));
 
 /* Serve static file if in production*/
-
+///^\/(?!api).*/
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("build"));
-  app.get("*", (req, res) => {
+  app.get(/^\/(?!api).*/, (req, res) => {
     res.sendFile(path.join(__dirname, "build/index.html"));
   });
 }
 app.use("/api", userRoutes);
-app.use("/", indexRoutes);
+app.use("/api", indexRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log("api runnging on port " + PORT + ": "));

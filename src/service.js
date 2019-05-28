@@ -1,7 +1,7 @@
 import Axios from "axios";
 
 export function getBoard() {
-  return Axios.get("/board", { withCredentials: true }).then(
+  return Axios.get("/api/board", { withCredentials: true }).then(
     response => response.data
   );
 }
@@ -48,7 +48,7 @@ export async function sendEmail(data) {
 }
 
 export async function reset(data) {
-  return await Axios.get("/reset", {
+  return await Axios.get("/api/reset", {
     params: { resetPasswordToken: data }
   }).then(response => {
     return response.data;
