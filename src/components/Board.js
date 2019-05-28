@@ -17,8 +17,13 @@ export default class Board extends Component {
           xs={24}
           onClick={onClickGroup.bind(this, groupID)}
           id={groupID}
+        >
+          <Card
+            style={styleBoard}
+            hoverable={true}
+            title={groupTitle}
+            bodyStyle={{ padding: "0" }}
           >
-          <Card style={styleBoard} hoverable={true} title={groupTitle}>
             <TaskList {...this.props} />
           </Card>
         </Col>
