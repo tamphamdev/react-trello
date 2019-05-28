@@ -1,13 +1,18 @@
 import React, { Component } from "react";
-import { Icon } from "antd";
+import { Icon, Card } from "antd";
 import { Droppable } from "react-beautiful-dnd";
 import AddTask from "./AddTask";
+import styled from "styled-components";
 import Task from "./Task";
 
 const taskStyle = {
   margin: "20px 0",
   fontSize: "1.1rem"
 };
+const Container = styled.div`
+  transition: background-color: .3 ease;
+  background-color: ${props => (props.isDraggingOver ? "skyblue" : "white")};
+`;
 class TaskList extends Component {
   state = {
     isAddTask: false
@@ -20,7 +25,7 @@ class TaskList extends Component {
     e.preventDefault();
     this.setState({ isAddTask: false });
   };
-  
+
   render() {
     const { groupTasks, groupID } = this.props;
 
@@ -39,12 +44,15 @@ class TaskList extends Component {
     return (
       <React.Fragment>
         <Droppable droppableId={groupID}>
-          {provided => (
-            <div ref={provided.innerRef} {...provided.droppableProps}>
+          {(provided, snapshot) => (
+            <Container
+              ref={provided.innerRef}
+              {...provided.droppableProps}
+              isDraggingOver={snapshot.isDraggingOver}
+            >
               {taskElement}
-
               {provided.placeholder}
-            </div>
+            </Container>
           )}
         </Droppable>
         {this.state.isAddTask ? (
