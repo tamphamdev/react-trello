@@ -1,7 +1,7 @@
 .App {
   font-family: 'Montserrat', sans-serif;
   text-align: center;
-  background-color: #F0F2F5;
+  background-color: #fff;
 }
 
 .App-logo {
@@ -29,6 +29,7 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
