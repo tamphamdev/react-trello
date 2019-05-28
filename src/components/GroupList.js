@@ -18,9 +18,9 @@ export default class GroupList extends Component {
     isLoading: true
   };
 
-  // Get data 
- async componentDidMount() {
-   await getBoard().then(data => {
+  // Get data
+  componentDidMount() {
+    getBoard().then(data => {
       this.setState({ data, isLoading: false });
     });
   }
@@ -166,10 +166,7 @@ export default class GroupList extends Component {
     );
 
     this.setState({
-      data: [
-        ...column, 
-        [sourceColumnIndex]: taskGrag
-      ],
+      data: [...column, ([sourceColumnIndex]: taskGrag)],
       ...this.state
     });
   };
