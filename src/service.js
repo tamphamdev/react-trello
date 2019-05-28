@@ -48,6 +48,7 @@ export async function sendEmail(data) {
 }
 
 export async function reset(data) {
+  console.log("Data from service", data);
   return await Axios.get("/api/reset", {
     params: { resetPasswordToken: data }
   }).then(response => {

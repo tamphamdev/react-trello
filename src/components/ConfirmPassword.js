@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {  Input, Button, Form, message, Col, Row } from "antd";
+import { Input, Button, Form, message, Col, Row } from "antd";
 import { updatePassword, reset } from "../service";
 
 export default class ConfirmPassword extends Component {
@@ -48,6 +48,7 @@ export default class ConfirmPassword extends Component {
     }
   };
   async componentDidMount() {
+    console.log("Token from Client", this.props.match.params.token);
     await reset(this.props.match.params.token)
       .then(res => {
         if (res.data.statusCode === 200) {
