@@ -30,20 +30,19 @@ mongoose
   .then(() => console.log("MongoDB successfully connected"))
   .catch(err => console.log(err));
 
-app.get("/*", (req, res) => {
-  let url = path.join(__dirname, "build/index.html");
-  if (!url.startsWith("/app/"))
-    // we're on local windows
-    url = url.substring(1);
-  res.sendFile(url);
-});
 /* Serve static file if in production*/
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("build"));
-  app.get(/^\/(?!api).*/, (req, res) => {
-    res.sendFile(path.join(__dirname, "build/index.html"));
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "/build", "/index.html"));
   });
 }
+// if (process.env.NODE_ENV === "production") {
+//   app.use(express.static("build"));
+//   app.get(/^\/(?!api).*/, (req, res) => {
+//     res.sendFile(path.join(__dirname, "build/index.html"));
+//   });
+// }
 
 app.use("/api", userRoutes);
 app.use("/api", indexRoutes);
