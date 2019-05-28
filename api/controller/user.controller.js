@@ -94,7 +94,7 @@ module.exports = {
       from: `${process.env.EMAIL}`,
       to: `${email}`,
       subject: "Link to reset password",
-      text: `${process.env.base_URL}/api/reset/${token}`
+      text: `${process.env.base_URL}/confirm-password/${token}`
     };
 
     await transporter.sendMail(mailOptions, (err, info) => {

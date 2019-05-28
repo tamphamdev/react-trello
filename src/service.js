@@ -1,7 +1,7 @@
 import Axios from "axios";
 
 export function getBoard() {
-  return Axios.get("/api/board", { withCredentials: true }).then(
+  return Axios.get("/board", { withCredentials: true }).then(
     response => response.data
   );
 }
