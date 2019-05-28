@@ -38,6 +38,10 @@ if (process.env.NODE_ENV === "production") {
     res.sendFile(path.join(__dirname, "build/index.html"));
   });
 }
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "build/index.html"));
+});
+
 app.use("/api", userRoutes);
 app.use("/api", indexRoutes);
 
