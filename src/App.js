@@ -1,7 +1,7 @@
 import "./App.css";
 import React from "react";
 import "antd/dist/antd.css";
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Template from "./components/Template";
 import GroupList from "./components/GroupList";
 import ModalForgotPass from "./components/ModalForgotPass";
@@ -11,9 +11,14 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Template>
-          <Route exact path="/" component={GroupList} />
-          <Route path="/reset-password" component={ModalForgotPass} />
-          <Route path="/confirm-password/:token" component={ConfirmPassword} />
+          <Switch>
+            <Route path="/reset-password" component={ModalForgotPass} />
+            <Route
+              path="/confirm-password/:token"
+              component={ConfirmPassword}
+            />
+            <Route path="/" exact component={GroupList} />
+          </Switch>
         </Template>
       </BrowserRouter>
     </div>
