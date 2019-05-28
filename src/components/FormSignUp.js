@@ -1,32 +1,31 @@
 import { signup } from "../service";
 import React, { Component } from "react";
-import { Form, Input } from "antd";
+import { Form, Input, Button } from "antd";
 
 class FormSignUp extends Component {
   state = {
     email: "",
     password: "",
-    isError: false,
-    message: ''
+    isError: false
   };
 
- 
-/* Submit form */
+  /* Submit form */
   handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
         signup(values).then(res => {
-          if(res.statusCode === 400) {
+          if (res.statusCode === 400) {
             this.props.error(res.message);
           } else {
             this.props.success(res.message);
           }
         });
-      } 
+      }
     });
+    this.props.form.resetFields();
   };
-/*Compare password */
+  /*Compare password */
   compareToFirstPassword = (rule, value, callback) => {
     const form = this.props.form;
     if (value && value !== form.getFieldValue("password")) {
@@ -48,24 +47,24 @@ class FormSignUp extends Component {
         sm: { span: 16 }
       }
     };
-   
+
     return (
       <Form
-      {...formItemLayout}
-      onSubmit={this.handleSubmit.bind(this)}
-      id="signup"
+        {...formItemLayout}
+        onSubmit={this.handleSubmit.bind(this)}
+        id="register"
       >
         <Form.Item label="E-mail">
           {getFieldDecorator("email", {
             rules: [
               {
+                required: true,
+                message: "Please input your E-mail!"
+              },
+              {
                 type: "email",
                 message: "The input is not valid E-mail!"
               },
-              {
-                required: true,
-                message: "Please input your E-mail!"
-              }
             ]
           })(<Input />)}
         </Form.Item>
@@ -103,7 +102,9 @@ class FormSignUp extends Component {
             ]
           })(<Input.Password onBlur={this.handleConfirmBlur} />)}
         </Form.Item>
-       
+        <Button type="primary" htmlType="submit">
+          Register
+        </Button>
       </Form>
     );
   }
