@@ -12,7 +12,6 @@ module.exports = {
       let { email, password } = req.body;
       let user = await User.findOne({ email: email });
       if (!user) {
-        console.log("Log user in login: ", user);
         return res.send({ statusCode: 400, message: "Email does not exist" });
       }
       if (!bcrypt.compareSync(password, user.password)) {
@@ -59,9 +58,8 @@ module.exports = {
         password
       });
       await user.save((err, result) => {
-        console.log("Result Sign up", result);
+        res.status(200).json({ statusCode: 200, message: "Sigup Success" });
       });
-      res.status(200).json({ statusCode: 200, message: "Sigup Success" });
     } catch (err) {
       console.log("Error from try/catch signup", err);
     }
@@ -81,7 +79,6 @@ module.exports = {
       resetPasswordExpired: Date.now() + 360000
     });
 
-    console.log("User update", { user });
     const transporter = await nodemailer.createTransport({
       service: "gmail",
       port: 587,
@@ -97,13 +94,12 @@ module.exports = {
       from: `${process.env.EMAIL}`,
       to: `${email}`,
       subject: "Link to reset password",
-      text: `http://localhost:3000/confirm-password/${token}`
+      text: `https://suga-trello.herokuapp.com/confirm-password/${token}`
     };
 
     await transporter.sendMail(mailOptions, (err, info) => {
       let message;
       if (err) {
-        console.log("Lỗi sendemail:  ", err);
         return res.json({ statusCode: 400, message: err });
       } else {
         message = info.response;
@@ -148,7 +144,10 @@ module.exports = {
       });
       let hashPassword = await bcrypt.hash(password, salt);
       if (!user) {
-        res.json({ statusCode: 400, message: "Update failed please try again" });
+        res.json({
+          statusCode: 400,
+          message: "Update failed please try again"
+        });
       } else {
         await user.updateOne({ password: hashPassword });
       }

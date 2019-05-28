@@ -47,7 +47,6 @@ export default class GroupList extends Component {
 
   // Get current idnex of Task & Group
   handleClickTask = (idTask, idGroup) => {
-    console.log("Click task", idTask, idGroup);
     if (idTask === this.state.currentIDTask) return;
 
     const { currentIndexTask, currentIndexGroup } = this.findIndex(
@@ -159,7 +158,7 @@ export default class GroupList extends Component {
     const sourceColumnIndex = column[source.droppableId - 1];
 
     let [updatedColumn] = sourceColumnIndex.tasks.splice(index, 1);
-    // add new task into destination co
+    // add new task into destination column
     let taskGrag = column[destination.droppableId - 1].tasks.splice(
       destination.index,
       0,

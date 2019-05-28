@@ -35,7 +35,6 @@ export function isAuthenticated() {
     localStorage.getItem("x-access-token-expiration") > Date.now()
     ? true
     : false;
-    console.log('auth from serivce :', auth);
     return auth;
 }
 

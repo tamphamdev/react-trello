@@ -8,14 +8,14 @@ class FormLogin extends Component {
     email: "",
     password: ""
   };
-  
-   hasErrors = fieldsError => {
+
+  hasErrors = fieldsError => {
     return Object.keys(fieldsError).some(field => fieldsError[field]);
   };
   // disbled button submit at beginning
   componentDidMount() {
-   this.props.form.validateFields();
-   }
+    this.props.form.validateFields();
+  }
 
   // Thay đổi input mỗi khi match với name của input
   handleOnChange = event => {
@@ -47,7 +47,6 @@ class FormLogin extends Component {
     }
   };
   render() {
-    console.log("this.state login :", this.state);
     const {
       getFieldDecorator,
       getFieldsError,

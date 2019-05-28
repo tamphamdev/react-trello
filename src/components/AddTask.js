@@ -7,8 +7,8 @@ const addTaskStyle = {
   padding: "10px 0"
 };
 const margin = {
-  margin: '1rem 0'
-}
+  margin: "1rem 0"
+};
 moment().format();
 class AddTask extends Component {
   state = {
@@ -32,7 +32,7 @@ class AddTask extends Component {
     let startDate = this.state.startDate;
     let endDate = this.state.endDate;
     let miliSecond = String(moment().valueOf(startDate));
-    
+
     const item = {
       id: miliSecond,
       title: text,
@@ -50,6 +50,7 @@ class AddTask extends Component {
       <div>
         <form onSubmit={this.handleSubmit} stlye={addTaskStyle}>
           <Input
+            required
             type="text"
             placeholder="New task"
             style={{ margin: "10px 0" }}
@@ -57,7 +58,7 @@ class AddTask extends Component {
           <RangePicker
             onChange={this.onChange}
             format={"DD/MM/YYYY"}
-           style={margin}
+            style={margin}
           />
           <Button htmlType="submit" style={{ marginRight: "20px" }}>
             Add
