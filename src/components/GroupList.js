@@ -18,9 +18,9 @@ export default class GroupList extends Component {
     isLoading: true
   };
 
-  // Fetch data thông qua file service
-  componentDidMount() {
-    getBoard().then(data => {
+  // Get data 
+ async componentDidMount() {
+   await getBoard().then(data => {
       this.setState({ data, isLoading: false });
     });
   }
@@ -37,7 +37,7 @@ export default class GroupList extends Component {
       currentTitleGroup
     });
   };
-  // kiểm tra board có re-render ko
+  // Check component re-render
   shouldComponentUpdate(nextProps, nextState) {
     if (nextProps !== this.props || nextState !== this.state) {
       return true;
@@ -45,7 +45,7 @@ export default class GroupList extends Component {
     return false;
   }
 
-  // lấy index hiện tại của Task và Group
+  // Get current idnex of Task & Group
   handleClickTask = (idTask, idGroup) => {
     console.log("Click task", idTask, idGroup);
     if (idTask === this.state.currentIDTask) return;
@@ -68,7 +68,7 @@ export default class GroupList extends Component {
 
   handleAddTask = (idTask, idGroup) => {
     if (idTask === this.state.currentIDTask) return;
-    // tìm index của Task và Group hiện tại
+    // find current index of Task & Group
     const { currentIndexTask, currentIndexGroup } = this.findIndex(
       idTask,
       idGroup
@@ -84,7 +84,7 @@ export default class GroupList extends Component {
     });
   };
 
-  // tìm idTask và idGroup
+  // Find idTask & idGroup
   findIndex = (idGroup, idTask) => {
     let currentIndexGroup;
     let currentIndexTask;
@@ -102,7 +102,7 @@ export default class GroupList extends Component {
     });
     return { currentIndexGroup, currentIndexTask };
   };
-  // tạo task mới
+  // Create task
   createTask = item => {
     this.state.data[this.state.currentIndexGroup].tasks.push(item);
     this.setState({
@@ -110,6 +110,7 @@ export default class GroupList extends Component {
     });
   };
 
+  // Update task
   updateTask = title => {
     const taskClone = this.state.data[this.state.currentIndexGroup].tasks[
       this.state.currentIndexTask
@@ -128,7 +129,7 @@ export default class GroupList extends Component {
     this.setState({ data: this.state.data });
     this.success("Delete sucess");
   };
-
+  // Message
   success = res => {
     message.success(res);
   };
@@ -143,9 +144,9 @@ export default class GroupList extends Component {
 
   onDragEnd = result => {
     const { destination, source } = result;
-    // return nếu ko có đích đến
+    // return if no have destination
     if (!destination) return;
-    // return nếu cột đi = cột đích
+    // return column destination = coumn source
     if (
       destination.droppableId === source.droppableId &&
       destination.index === source.index
@@ -154,19 +155,22 @@ export default class GroupList extends Component {
     }
     const { index } = source;
     const column = this.state.data;
-    // lấy index cột gốc
+    // find source column index
     const sourceColumnIndex = column[source.droppableId - 1];
 
     let [updatedColumn] = sourceColumnIndex.tasks.splice(index, 1);
-    // thêm task vào cột đích
-    let demo = column[destination.droppableId - 1].tasks.splice(
+    // add new task into destination co
+    let taskGrag = column[destination.droppableId - 1].tasks.splice(
       destination.index,
       0,
       updatedColumn
     );
 
     this.setState({
-      data: [...column, ([sourceColumnIndex]: demo)],
+      data: [
+        ...column, 
+        [sourceColumnIndex]: taskGrag
+      ],
       ...this.state
     });
   };
