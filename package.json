@@ -26,12 +26,13 @@
   },
   "proxy": "http://localhost:5000",
   "scripts": {
-    "start": "react-scripts start",
+    "start": "node api/server.js",
+    "react": "react-script start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "api": "nodemon api/server.js",
-    "dev": "concurrently \"npm run api\" \"npm run start\"",
+    "dev": "concurrently \"npm run api\" \"npm run react\"",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install && npm run build"
   },
   "eslintConfig": {
