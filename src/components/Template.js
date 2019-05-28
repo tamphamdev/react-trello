@@ -34,10 +34,11 @@ class Template extends Component {
     await this.setState({ isLogin: false });
   };
   // log in method
-  logIn = () => {
-    this.setState({ isLogin: auth });
-    this.forceUpdate();
+  logIn = async () => {
+    await this.setState({ isLogin: auth });
+    await this.forceUpdate();
   };
+
   componentWillMount() {
     this.setState({ user: localStorage.getItem("user") });
   }
@@ -97,9 +98,7 @@ class Template extends Component {
             </Menu>
           </Header>
 
-          <Content style={{ padding: "0 20px" }}>
-            {this.props.children}
-          </Content>
+          <Content style={{ padding: "0 20px" }}>{this.props.children}</Content>
         </Layout>
       </div>
     );
