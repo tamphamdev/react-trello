@@ -1,7 +1,7 @@
 import Axios from "axios";
 
 export function getBoard() {
-  return Axios.get("/api/board", { withCredentials: true }).then(
+  return Axios.get("/board", { withCredentials: true }).then(
     response => response.data
   );
 }
@@ -31,11 +31,12 @@ export async function signup(data) {
 }
 
 export function isAuthenticated() {
- let auth = localStorage.getItem("x-access-token") &&
+  let auth =
+    localStorage.getItem("x-access-token") &&
     localStorage.getItem("x-access-token-expiration") > Date.now()
-    ? true
-    : false;
-    return auth;
+      ? true
+      : false;
+  return auth;
 }
 
 export async function sendEmail(data) {
@@ -47,7 +48,7 @@ export async function sendEmail(data) {
 }
 
 export async function reset(data) {
-  return await Axios.get("/api/reset", {
+  return await Axios.get("/reset", {
     params: { resetPasswordToken: data }
   }).then(response => {
     return response.data;

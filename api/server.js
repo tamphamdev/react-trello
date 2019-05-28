@@ -39,7 +39,7 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 app.use("/api", userRoutes);
-app.use("/api", indexRoutes);
+app.use("/", indexRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log("api runnging on port " + PORT + ": "));
