@@ -11,7 +11,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Template>
-          <Route exact path="/" component={GroupList} />
+          <Route path="/" component={GroupList} />
           <Route path="/reset-password" component={ModalForgotPass} />
           <Route path="/confirm-password/:token" component={ConfirmPassword} />
         </Template>
