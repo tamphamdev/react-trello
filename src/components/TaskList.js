@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Icon, Card } from "antd";
+import { Icon } from "antd";
 import { Droppable } from "react-beautiful-dnd";
 import AddTask from "./AddTask";
 import styled from "styled-components";
