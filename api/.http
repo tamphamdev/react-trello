@@ -1,4 +1,6 @@
 # GET https://gentle-plains-12207.herokuapp.com/api/board
 
+GET https://suga-trello.herokuapp.com/confirm-password/3129a50ab115236d1dcd3d621a3582fe40ea468f
+
 
 GET https://suga-trello.herokuapp.com/api/board/

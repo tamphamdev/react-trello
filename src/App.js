@@ -11,7 +11,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Template>
-          <GroupList />
+          {/* <GroupList />  thu bo grouplist*/}
           <Route path="/reset-password" component={ModalForgotPass} />
           <Route path="/confirm-password/:token" component={ConfirmPassword} />
           <Route path="/" exact component={GroupList} />
