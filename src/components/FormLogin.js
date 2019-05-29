@@ -24,7 +24,7 @@ class FormLogin extends Component {
   // submit form login
   handleSubmit = e => {
     e.preventDefault();
-    e.stopPropagation();
+    // e.stopPropagation();
     this.props.form.validateFields((err, values) => {
       if (!err) {
         login(values).then(res => {
