@@ -51,7 +51,7 @@ export default class ModalLogin extends Component {
         confirmLoading={confirmLoading}
         onCancel={this.handleCancel}
           >
-          <FormSignUp {...this.props}  />
+          <FormSignUp {...this.props}  closeModal={this.handleSubmit}/>
         </Modal>
       </div>
     )
