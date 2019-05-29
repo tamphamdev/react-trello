@@ -24,6 +24,7 @@ class FormSignUp extends Component {
       }
     });
     this.props.form.resetFields();
+    this.props.closeModal();
   };
   /*Compare password */
   compareToFirstPassword = (rule, value, callback) => {
