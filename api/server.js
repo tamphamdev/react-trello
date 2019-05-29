@@ -31,9 +31,10 @@ mongoose
   .catch(err => console.log(err));
 
 /* Serve static file if in production*/
+// thay bằng app.get(/^\/(?!api).*/) bằng  app.get('/*') thì url ok nhưng index không hiện 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("build"));
-  app.get("/*", (req, res) => {
+  app.get(/^\/(?!api).*/, (req, res) => {
     res.sendFile(path.join(__dirname, "..", "build/index.html"));
   });
 }
