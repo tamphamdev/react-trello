@@ -22,12 +22,12 @@ export default class ModalLogin extends Component {
       confirmLoading: true
     });
     setTimeout(() => {
-      this.props.action();
       this.setState({
         visible: false,
         confirmLoading: false
       });
-    }, 500);
+      this.props.action();
+    }, 1000);
   };
 
   handleCancel = () => {
