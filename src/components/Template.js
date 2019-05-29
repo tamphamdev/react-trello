@@ -30,18 +30,19 @@ class Template extends Component {
   };
   // log out method
   logOut = async () => {
-    await localStorage.clear();
-    await this.setState({ isLogin: false });
+    localStorage.clear();
+    this.setState({ isLogin: await isAuthenticated(), user: "" });
   };
   // log in method
   logIn = async () => {
-    await this.setState({ isLogin: auth });
+    this.setState({
+      isLogin: await isAuthenticated(),
+      user: localStorage.getItem("user")
+    });
     await this.forceUpdate();
   };
 
-  componentWillMount() {
-    this.setState({ user: localStorage.getItem("user") });
-  }
+ 
   render() {
     const { isLogin, user } = this.state;
     return (
