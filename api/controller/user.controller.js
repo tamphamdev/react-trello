@@ -115,7 +115,7 @@ module.exports = {
   reset: async (req, res) => {
     console.log("Request reset", { req });
     let user = await User.findOne({
-      resetPasswordToken: req.params.token,
+      resetPasswordToken: req.query.resetPasswordToken,
       resetPasswordExpired: {
         $gt: Date.now()
       }
