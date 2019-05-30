@@ -1,11 +1,26 @@
 import Board from "./Board";
 import { Row, Spin, message } from "antd";
-import { getBoard } from "../service";
 import React, { Component } from "react";
 import { DragDropContext } from "react-beautiful-dnd";
 export default class GroupList extends Component {
   state = {
-    data: [],
+    data: [
+      {
+        id: 1,
+        title: "To do",
+        tasks: []
+      },
+      {
+        id: 2,
+        title: "Doing",
+        tasks: []
+      },
+      {
+        id: 3,
+        title: "Done",
+        tasks: []
+      }
+    ],
     currentIDGroup: null,
     currentTitleGroup: null,
     currentIndexGroup: null,
@@ -15,14 +30,15 @@ export default class GroupList extends Component {
     currentTitleTask: null,
 
     isAddGroup: false,
-    isLoading: true
+    isLoading: false
   };
 
   // Get data
   componentDidMount() {
-    getBoard().then(data => {
-      this.setState({ data, isLoading: false });
-    });
+    let local = JSON.parse(localStorage.getItem("task"));
+    if (local) {
+      this.setState({ data: local, isLoading: false });
+    }
   }
   // get id of group & task
   handleClickGroup = id => {
@@ -103,10 +119,14 @@ export default class GroupList extends Component {
   };
   // Create task
   createTask = item => {
-    this.state.data[this.state.currentIndexGroup].tasks.push(item);
-    this.setState({
-      data: this.state.data
-    });
+    let data = this.state.data;
+    data[this.state.currentIndexGroup].tasks.push(item);
+    this.setState(
+      {
+        data: data
+      },
+      () => localStorage.setItem("task", JSON.stringify(data))
+    );
   };
 
   // Update task
@@ -120,12 +140,17 @@ export default class GroupList extends Component {
       1,
       taskClone
     );
-    this.setState({ data: this.state.data });
+    this.setState({ data: this.state.data }, () =>
+      localStorage.setItem("task", JSON.stringify(this.state.data))
+    );
   };
 
-  deleteTask = (idTask, idGroup) => {
-    this.state.data[idGroup - 1].tasks.splice(idTask - 1, 1);
-    this.setState({ data: this.state.data });
+  deleteTask = (index, idGroup) => {
+    this.state.data[idGroup - 1].tasks.splice(index, 1);
+
+    this.setState({ data: this.state.data }, () =>
+      localStorage.setItem("task", JSON.stringify(this.state.data))
+    );
     this.success("Delete sucess");
   };
   // Message
@@ -145,7 +170,7 @@ export default class GroupList extends Component {
     const { destination, source } = result;
     // return if no have destination
     if (!destination) return;
-    // return column destination = coumn source
+    // return column destination = column source
     if (
       destination.droppableId === source.droppableId &&
       destination.index === source.index
@@ -165,10 +190,13 @@ export default class GroupList extends Component {
       updatedColumn
     );
 
-    this.setState({
-      data: [...column, ([sourceColumnIndex]: taskGrag)],
-      ...this.state
-    });
+    this.setState(
+      {
+        data: [...column, ([sourceColumnIndex]: taskGrag)],
+        ...this.state
+      },
+      () => localStorage.setItem("task", JSON.stringify(this.state.data))
+    );
   };
 
   render() {
