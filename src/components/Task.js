@@ -54,7 +54,7 @@ const Task = props => {
             />
             <Popconfirm
               title="Are you sure delete task?"
-              onConfirm={() => deleteTask(taskID, groupID)}
+              onConfirm={() => deleteTask(index, groupID)}
               okText="Yes"
               cancelText="No"
             >
